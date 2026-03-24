@@ -1,0 +1,13 @@
+[workspace]
+members = [
+    "crates/welcome-gtk",
+    "crates/welcome-qt",
+    "crates/welcome-cosmic",
+]
+resolver = "2"
+
+[workspace.package]
+version = "1.0.0"
+authors = ["RakuOS Project"]
+license = "GPL-3.0-or-later"
+edition = "2021"

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+case "$XDG_CURRENT_DESKTOP" in
+    *GNOME*)  exec /usr/libexec/rakuos/rakuos-welcome-gtk "$@" ;;
+    *COSMIC*) exec /usr/libexec/rakuos/rakuos-welcome-cosmic "$@" ;;
+    *)        exec /usr/libexec/rakuos/rakuos-welcome-qt "$@" ;;
+esac
