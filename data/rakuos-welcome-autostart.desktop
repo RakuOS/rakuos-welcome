@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=RakuOS Welcome
+Comment=Welcome to RakuOS Linux
+Exec=/usr/bin/rakuos-welcome
+Icon=rakuos-logo
+Terminal=false
+Type=Application
+Categories=System;
+X-GNOME-Autostart-enabled=true
+NoDisplay=true

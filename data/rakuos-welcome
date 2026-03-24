@@ -1,6 +1,26 @@
 #!/usr/bin/env bash
-case "$XDG_CURRENT_DESKTOP" in
-    *GNOME*)  exec /usr/libexec/rakuos/rakuos-welcome-gtk "$@" ;;
-    *COSMIC*) exec /usr/libexec/rakuos/rakuos-welcome-cosmic "$@" ;;
-    *)        exec /usr/libexec/rakuos/rakuos-welcome-qt "$@" ;;
-esac
+# RakuOS Welcome launcher
+# Auto-detects DE or can be forced with --ui=gtk|qt|cosmic
+# Usage: rakuos-welcome [--ui=gtk|qt|cosmic] [--force]
+
+UI=""
+PASSTHROUGH=()
+
+for arg in "$@"; do
+    case "$arg" in
+        --ui=gtk)    UI="gtk" ;;
+        --ui=qt)     UI="qt" ;;
+        --ui=cosmic) UI="cosmic" ;;
+        *)           PASSTHROUGH+=("$arg") ;;
+    esac
+done
+
+if [[ -z "$UI" ]]; then
+    case "$XDG_CURRENT_DESKTOP" in
+        *GNOME*)  UI="gtk" ;;
+        *COSMIC*) UI="cosmic" ;;
+        *)        UI="qt" ;;
+    esac
+fi
+
+exec /usr/libexec/rakuos/rakuos-welcome-${UI} "${PASSTHROUGH[@]}"

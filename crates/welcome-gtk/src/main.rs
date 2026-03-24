@@ -84,11 +84,13 @@ fn build_ui(app: &Application) {
         .default_height(560)
         .build();
 
-    // Window icon
+    // Window icon — adds pixmaps path so rakuos-logo resolves in the icon theme
     if let Some(display) = gtk4::gdk::Display::default() {
         IconTheme::for_display(&display).add_search_path("/usr/share/pixmaps");
     }
     win.set_icon_name(Some("rakuos-logo"));
+    // Startup WM class must match the .desktop file so the dock shows the right icon
+    win.set_startup_id(APP_ID);
 
     // Root layout
     let root = GtkBox::new(Orientation::Vertical, 0);
