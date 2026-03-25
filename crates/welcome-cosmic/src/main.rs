@@ -31,21 +31,21 @@ struct SetupPage {
 const SETUP_PAGES: &[SetupPage] = &[
     SetupPage {
         title: "Gaming Setup",
-        icon: "🎮",
+        icon: "input-gaming-symbolic",
         description: "Install Steam and Lutris natively for the best gaming performance. \
                       Native packages give better Proton and Wine compatibility than Flatpak.",
         script: "setup-gaming",
     },
     SetupPage {
         title: "Virtualization",
-        icon: "🖥",
+        icon: "computer-symbolic",
         description: "Set up KVM/QEMU and virt-manager to run virtual machines. \
                       Ideal for running Windows or other Linux distros alongside RakuOS.",
         script: "setup-virtualization",
     },
     SetupPage {
         title: "Local AI with Ollama",
-        icon: "🤖",
+        icon: "applications-science-symbolic",
         description: "Install Ollama to run AI language models locally on your GPU. \
                       Keep your conversations private and use AI without the cloud.",
         script: "setup-ollama",
@@ -405,7 +405,7 @@ impl WelcomeApp {
 
         widget::container(
             widget::column()
-                .push(widget::container(widget::text(def.icon).size(48)).center_x(Length::Fill).width(Length::Fill))
+                .push(widget::container(widget::icon::from_name(def.icon).size(48).icon()).center_x(Length::Fill).width(Length::Fill))
                 .push(widget::container(widget::text::title2(def.title)).center_x(Length::Fill).width(Length::Fill))
                 .push(
                     widget::container(widget::text(def.description).width(Length::Fixed(480.0)))
@@ -425,7 +425,7 @@ impl WelcomeApp {
     fn view_done(&self) -> Element<Message> {
         widget::container(
             widget::column()
-                .push(widget::container(widget::text("🎉").size(56)).width(Length::Fill).center_x(Length::Fill))
+                .push(widget::container(widget::icon::from_name("object-select-symbolic").size(56).icon()).width(Length::Fill).center_x(Length::Fill))
                 .push(widget::container(widget::text::title1("You're All Set!")).width(Length::Fill).center_x(Length::Fill))
                 .push(
                     widget::container(
@@ -463,6 +463,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let force = std::env::args_os().any(|a| a == "--force" || a == "-f");
     if done_file().exists() && !force {
         return Ok(());
+    }
+
+    // On non-COSMIC desktops (e.g. testing on GNOME/KDE), the Cosmic icon theme
+    // won't be installed — fall back to Adwaita so icons actually render.
+    if std::env::var("XDG_CURRENT_DESKTOP").unwrap_or_default() != "COSMIC" {
+        cosmic::icon_theme::set_default("Adwaita");
     }
 
     let settings = Settings::default()
