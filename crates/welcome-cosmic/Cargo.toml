@@ -10,5 +10,4 @@ name = "rakuos-welcome-cosmic"
 path = "src/main.rs"
 
 [dependencies]
-# libcosmic will be added when implementing the COSMIC frontend
-# It is sourced directly from System76's GitHub, not crates.io
+libcosmic = { git = "https://github.com/pop-os/libcosmic", features = ["wayland", "tokio"] }

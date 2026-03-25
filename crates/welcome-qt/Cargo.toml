@@ -10,8 +10,8 @@ name = "rakuos-welcome-qt"
 path = "src/main.rs"
 
 [dependencies]
-cxx-qt = "0.7"
-cxx-qt-lib = { version = "0.7", features = ["qt_gui", "full"] }
+qmetaobject = "0.2"
+cpp = "0.5"
 
 [build-dependencies]
-cxx-qt-build = "0.7"
+cpp_build = "0.5"

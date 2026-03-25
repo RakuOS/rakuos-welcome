@@ -9,10 +9,17 @@ Source0:        %{url}/archive/refs/heads/main.tar.gz
 BuildRequires:  rust
 BuildRequires:  cargo
 BuildRequires:  gcc
+BuildRequires:  gcc-c++
+BuildRequires:  pkgconf
 BuildRequires:  gtk4-devel
 BuildRequires:  libadwaita-devel
 BuildRequires:  qt6-qtbase-devel
-BuildRequires:  qt6-qtwidgets-devel
+BuildRequires:  qt6-qtdeclarative-devel
+BuildRequires:  wayland-devel
+BuildRequires:  libxkbcommon-devel
+BuildRequires:  mesa-libGL-devel
+BuildRequires:  fontconfig-devel
+BuildRequires:  dbus-devel
 
 %description
 RakuOS Welcome is a first-login welcome application for RakuOS Linux.
@@ -33,6 +40,7 @@ Install on GNOME-based RakuOS images.
 Summary:        RakuOS Welcome App — Qt6/KDE frontend
 Requires:       rakuos-welcome = %{version}-%{release}
 Requires:       qt6-qtbase
+Requires:       qt6-qtdeclarative
 
 %description qt
 Qt6 frontend for the RakuOS Welcome app.
@@ -51,7 +59,7 @@ Install on COSMIC-based RakuOS images.
 
 %build
 cargo build --release --bin rakuos-welcome-gtk
-cargo build --release --bin rakuos-welcome-qt
+QMAKE=qmake6 cargo build --release --bin rakuos-welcome-qt
 cargo build --release --bin rakuos-welcome-cosmic
 
 %install
@@ -66,6 +74,8 @@ install -Dm755 target/release/rakuos-welcome-gtk \
     %{buildroot}/usr/libexec/rakuos/rakuos-welcome-gtk
 install -Dm755 target/release/rakuos-welcome-qt \
     %{buildroot}/usr/libexec/rakuos/rakuos-welcome-qt
+install -Dm644 crates/welcome-qt/qml/main.qml \
+    %{buildroot}/usr/share/rakuos-welcome-qt/main.qml
 install -Dm755 target/release/rakuos-welcome-cosmic \
     %{buildroot}/usr/libexec/rakuos/rakuos-welcome-cosmic
 
@@ -79,6 +89,7 @@ install -Dm755 target/release/rakuos-welcome-cosmic \
 
 %files qt
 /usr/libexec/rakuos/rakuos-welcome-qt
+/usr/share/rakuos-welcome-qt/main.qml
 
 %files cosmic
 /usr/libexec/rakuos/rakuos-welcome-cosmic
