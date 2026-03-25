@@ -58,9 +58,9 @@ Install on COSMIC-based RakuOS images.
 %autosetup -n rakuos-welcome-main
 
 %build
-cargo build --release --bin rakuos-welcome-gtk
-QMAKE=qmake6 cargo build --release --bin rakuos-welcome-qt
-cargo build --release --bin rakuos-welcome-cosmic
+cargo build --locked --release --bin rakuos-welcome-gtk
+QMAKE=qmake6 cargo build --locked --release --bin rakuos-welcome-qt
+cargo build --locked --release --bin rakuos-welcome-cosmic
 
 %install
 install -Dm755 data/rakuos-welcome \
