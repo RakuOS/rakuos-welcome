@@ -5572,8 +5572,7 @@ dependencies = [
 name = "welcome-qt"
 version = "1.0.0"
 dependencies = [
- "cpp",
- "cpp_build",
+ "cc",
  "qmetaobject",
 ]
 

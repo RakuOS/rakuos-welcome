@@ -11,7 +11,6 @@ path = "src/main.rs"
 
 [dependencies]
 qmetaobject = "0.2"
-cpp = "=0.5.10"
 
 [build-dependencies]
-cpp_build = "=0.5.10"
+cc = "1"
