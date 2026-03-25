@@ -5,14 +5,6 @@ mod backend;
 use backend::WelcomeBackend;
 use qmetaobject::QmlEngine;
 
-#[macro_use]
-extern crate cpp;
-
-cpp! {{
-    #include <QGuiApplication>
-    #include <QIcon>
-}}
-
 fn main() {
     let force = std::env::args_os().any(|a| a == "--force" || a == "-f");
     if backend::done_file().exists() && !force {
@@ -31,14 +23,6 @@ fn main() {
     );
 
     let mut engine = QmlEngine::new();
-
-    // Set the application icon so KDE's taskbar/dock shows the RakuOS logo.
-    // QGuiApplication is initialised by QmlEngine::new(), so this is safe here.
-    unsafe {
-        cpp!([] {
-            QGuiApplication::setWindowIcon(QIcon("/usr/share/pixmaps/rakuos-logo.png"));
-        });
-    }
 
     // Installed path is /usr/share/rakuos-welcome-qt/main.qml.
     // During development set RAKUOS_QML_DIR to the qml/ source folder.
