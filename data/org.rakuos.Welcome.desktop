@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=RakuOS Welcome
 Comment=Welcome to RakuOS Linux
-Exec=/usr/bin/rakuos-welcome
+Exec=/usr/bin/rakuos-welcome --force
 Icon=rakuos-logo
 Terminal=false
 Type=Application

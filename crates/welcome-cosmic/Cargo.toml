@@ -11,3 +11,4 @@ path = "src/main.rs"
 
 [dependencies]
 libcosmic = { git = "https://github.com/pop-os/libcosmic", features = ["wayland", "tokio"] }
+image = { version = "0.25", default-features = false, features = ["png"] }

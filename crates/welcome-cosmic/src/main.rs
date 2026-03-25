@@ -8,7 +8,7 @@ use std::sync::{
 };
 
 use cosmic::app::{Core, Settings, Task};
-use cosmic::iced::{self, Length, Subscription};
+use cosmic::iced::{self, window, Length, Subscription};
 use cosmic::iced_core::layout::Limits;
 use cosmic::{executor, widget, Application, ApplicationExt, Element};
 
@@ -115,7 +115,18 @@ impl Application for WelcomeApp {
             shared: Arc::new(SharedState::default()),
         };
         app.set_header_title("Welcome to RakuOS".into());
-        (app, Task::none())
+
+        let icon_task = app.core().main_window_id()
+            .and_then(|id| {
+                let img = image::open("/usr/share/pixmaps/rakuos-logo.png").ok()?;
+                let rgba = img.to_rgba8();
+                let (w, h) = rgba.dimensions();
+                let icon = iced::window::icon::from_rgba(rgba.into_raw(), w, h).ok()?;
+                Some(window::set_icon(id, icon))
+            })
+            .unwrap_or(Task::none());
+
+        (app, icon_task)
     }
 
     fn subscription(&self) -> Subscription<Message> {
