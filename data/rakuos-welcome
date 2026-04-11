@@ -18,8 +18,8 @@ done
 if [[ -z "$UI" ]]; then
     case "$XDG_CURRENT_DESKTOP" in
         *GNOME*)  UI="gtk" ;;
-        *COSMIC*) UI="cosmic" ;;
-        *)        UI="qt" ;;
+        *KDE*)    UI="qt" ;;
+        *)        UI="cosmic" ;;
     esac
 fi
 
